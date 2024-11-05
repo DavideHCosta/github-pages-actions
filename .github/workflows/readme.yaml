@@ -6,9 +6,9 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -32,5 +32,21 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          node -e "
+            const fs = require('fs');
+            const { JSDOM } = require('jsdom');
+
+            // Load index.html
+            const htmlContent = fs.readFileSync('index.html', 'utf-8');
+            const dom = new JSDOM(htmlContent);
+
+            // Extract <title> and first <p> as description
+            const title = dom.window.document.querySelector('title')?.textContent || 'My Project';
+            const description = dom.window.document.querySelector('p')?.textContent || 'Description not available.';
+
+            // Generate README content
+            const readmeContent = \`# \${title}\n\n\${description}\n\nThis README was generated automatically from index.html.\`;
+
+            // Write to README.md
+            fs.writeFileSync('README.md', readmeContent);
+            "
