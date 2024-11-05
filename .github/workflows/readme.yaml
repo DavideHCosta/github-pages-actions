@@ -12,16 +12,16 @@ permissions:
   id-token: write
 
 jobs:
-  generate-readme: 
+  generate-readme:
     runs-on: ubuntu-latest
-    steps: 
+    steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: "16"
 
       - name: Install dependencies
         run: npm install jsdom --save
@@ -29,3 +29,6 @@ jobs:
       # Run JavaScript code
       - name: Run JavaScript Code
         run: node .github/workflows/move_to_readme.js
+
+      - name: Commit and push to repo
+        run: git add . & git commit -m "New README" & git push
