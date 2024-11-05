@@ -1,52 +1,32 @@
-# This is a basic workflow to help you get started with Actions
+name: Generate README from index.html
 
-name: CI
-
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: ["main"]
-  pull_request:
-    branches: ["main"]
+    branches:
+      - main
+  workflow_dispatch: # Allows manual triggering of the workflow
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+permissions:
+  contents: write
+  pages: write
+  id-token: write
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+  generate-readme: node -e "
+    const fs = require('fs');
+    const { JSDOM } = require('jsdom');
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
+    // Load index.html
+    const htmlContent = fs.readFileSync('index.html', 'utf-8');
+    const dom = new JSDOM(htmlContent);
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+    // Extract <title> and first <p> as description
+    const title = dom.window.document.querySelector('title')?.textContent || 'My Project';
+    const description = dom.window.document.querySelector('p')?.textContent || 'Description not available.';
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          node -e "
-            const fs = require('fs');
-            const { JSDOM } = require('jsdom');
+    // Generate README content
+    const readmeContent = \`# \${title}\n\n\${description}\n\nThis README was generated automatically from index.html.\`;
 
-            // Load index.html
-            const htmlContent = fs.readFileSync('index.html', 'utf-8');
-            const dom = new JSDOM(htmlContent);
-
-            // Extract <title> and first <p> as description
-            const title = dom.window.document.querySelector('title')?.textContent || 'My Project';
-            const description = dom.window.document.querySelector('p')?.textContent || 'Description not available.';
-
-            // Generate README content
-            const readmeContent = \`# \${title}\n\n\${description}\n\nThis README was generated automatically from index.html.\`;
-
-            // Write to README.md
-            fs.writeFileSync('README.md', readmeContent);
-            "
+    // Write to README.md
+    fs.writeFileSync('README.md', readmeContent);
+    "
