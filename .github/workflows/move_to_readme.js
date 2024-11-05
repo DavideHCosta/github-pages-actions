@@ -13,4 +13,5 @@ const description = dom.window.document.querySelector('p')?.textContent || 'Desc
 const readmeContent = `# \${title}\n\n\${description}\n\nThis README was generated automatically from index.html.`;
 
 // Write to README.md
-fs.writeFileSync('README.md', readmeContent);
+const output = fs.writeFileSync('README.md', readmeContent);
+console.log(output);
