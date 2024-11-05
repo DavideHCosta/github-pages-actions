@@ -31,4 +31,9 @@ jobs:
         run: node .github/workflows/move_to_readme.js
 
       - name: Commit and push to repo
-        run: git add README.md & git commit -m "New README" & git push
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "Auto-generate README from index.html"
+          git push
