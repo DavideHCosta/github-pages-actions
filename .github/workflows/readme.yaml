@@ -23,10 +23,6 @@ jobs:
         with:
           node-version: '16'
 
-      # Install dependencies (if needed)
-      - name: Install dependencies
-        run: npm install
-
       # Run JavaScript code
       - name: Run JavaScript Code
         run: node move_to_readme.js
