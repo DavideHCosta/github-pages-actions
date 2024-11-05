@@ -25,12 +25,12 @@ jobs:
       # Step 3: Install dependencies using npx (htmlhint for linter)
       - name: Install dependencies
         run: |
-          npm install htmlhint jsdom --save
+          npm install jsdom --save
  
       # Step 4: Run HTML linter
       - name: Run HTML linter
         run: |
-          htmlhint docs/index.html
+          npx htmlhint docs/index.html
  
       # Step 5: Run test script to check for the presence of a <title> tag
       - name: Run title tag test
