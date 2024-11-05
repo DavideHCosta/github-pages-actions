@@ -1,0 +1,48 @@
+name: Change Page Title and Lint HTML
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # Allows manual triggering of the workflow
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  generate-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+
+    # Step 3: Install necessary dependencies using npx
+      - name: Install dependencies
+        run: |
+          npx install htmlhint jsdom
+ 
+      # Step 4: Run HTML linter
+      - name: Run HTML linter
+        run: |
+          npx htmlhint index.html
+ 
+      # Step 5: Modify the title in index.html based on user input
+      - name: Change Page Title
+        run: |
+          TITLE="${{ github.event.inputs.title || 'Default Title' }}"
+          node .github/workflows/change_title_input.js "$TITLE"
+
+      - name: Commit and push to repo
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "Change page title to '${{ github.event.inputs.title || 'Default Title' }}'"
+          git push
