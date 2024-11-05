@@ -1,0 +1,35 @@
+name: Blue-Green Swap for HTML Pages
+ 
+on:
+  workflow_dispatch: # Allows manual triggering of the workflow
+ 
+jobs:
+  swap-index:
+    runs-on: ubuntu-latest
+ 
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v3
+ 
+      # Step 2: Swap the contents of index.html and index_v2.html
+      - name: Swap index.html and index_v2.html
+        run: |
+          # Backup index.html and index_v2.html if needed
+          cp docs/index.html docs/index_backup.html
+          cp docs/index_v2.html docs/index.html
+          cp docs/index_backup.html docs/index_v2.html
+ 
+      # Step 3: Commit and push changes to the repository (if files have changed)
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          # Check for changes and commit only if needed
+          if [[ `git diff --name-only` ]]; then
+            git add docs/index.html docs/index_v2.html
+            git commit -m "Swap contents of index.html and index_v2.html"
+            git push
+          else
+            echo "No changes to commit."
+          fi
