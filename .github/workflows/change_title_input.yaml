@@ -26,12 +26,12 @@ jobs:
     # Step 3: Install necessary dependencies using npx
       - name: Install dependencies
         run: |
-          npx install htmlhint jsdom
+          npm install htmlhint jsdom
  
       # Step 4: Run HTML linter
       - name: Run HTML linter
         run: |
-          npx htmlhint index.html
+          npm htmlhint index.html
  
       # Step 5: Modify the title in index.html based on user input
       - name: Change Page Title
