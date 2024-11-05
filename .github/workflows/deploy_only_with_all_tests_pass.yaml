@@ -1,0 +1,42 @@
+name: Deploy Only If All Tests Pass
+ 
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # Allows manual triggering of the workflow
+ 
+permissions:
+  contents: write
+  id-token: write
+ 
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+ 
+    steps:
+      # Step 1: Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v3
+ 
+      # Step 2: Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+ 
+      # Step 3: Install dependencies using npx (htmlhint for linter)
+      - name: Install dependencies
+        run: |
+          npm install htmlhint jsdom
+ 
+      # Step 4: Run HTML linter
+      - name: Run HTML linter
+        run: |
+          npm htmlhint docs/index.html
+ 
+      # Step 5: Run test script to check for the presence of a <title> tag
+      - name: Run title tag test
+        run: |
+          node .github/workflows/deploy_only_with_all_tests_pass.js
+ 
