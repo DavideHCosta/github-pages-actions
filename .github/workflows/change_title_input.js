@@ -5,7 +5,7 @@ const { JSDOM } = require('jsdom');
 const newTitle = process.argv[2] || 'Default Title';
  
 // Read index.html
-const htmlContent = fs.readFileSync('index.html', 'utf-8');
+const htmlContent = fs.readFileSync('docs/index.html', 'utf-8');
 const dom = new JSDOM(htmlContent);
  
 // Change the <title> tag
@@ -19,5 +19,5 @@ if (titleTag) {
 }
  
 // Write the modified content back to index.html
-fs.writeFileSync('index.html', dom.serialize());
+fs.writeFileSync('docs/index.html', dom.serialize());
 console.log(`Updated <title> to "${newTitle}"`);
