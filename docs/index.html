@@ -1,0 +1,110 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevOps Study Hub</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #1e1e2f;
+            color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            background: #28293d;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #00c7b7;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .code-snippet {
+            background-color: #1b1b32;
+            color: #00c7b7;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: left;
+            margin: 20px 0;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #00c7b7;
+            color: #28293d;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #019d8a;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .highlight {
+            color: #ff6347;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the DevOps Study Hub</h1>
+        <p>
+            Embark on a journey to master the art of <span class="highlight">continuous integration</span> 
+            and <span class="highlight">continuous deployment</span>. Embrace the DevOps philosophy, 
+            where collaboration and automation create seamless delivery pipelines.
+        </p>
+        <div class="code-snippet">
+            # Example: Automating Deployment with GitHub Actions<br>
+            name: CI/CD Pipeline<br>
+            on: [push]<br>
+            jobs:<br>
+            &nbsp;&nbsp;build:<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;runs-on: ubuntu-latest<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;steps:<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;- name: Checkout code<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;uses: actions/checkout@v3<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;- name: Run tests<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;run: npm test
+        </div>
+        <a href="https://github.com" class="btn" target="_blank">Learn More</a>
+        <div class="footer">
+            &copy; 2024 DevOps Study Hub | Keep automating, keep innovating.
+        </div>
+    </div>
+</body>
+</html>
