@@ -10,8 +10,7 @@ const title = dom.window.document.querySelector('title')?.textContent || 'My Pro
 const description = dom.window.document.querySelector('p')?.textContent || 'Description not available.';
 
 // Generate README content
-const readmeContent = `# \${title}\n\n\${description}\n\nThis README was generated automatically from index.html.`;
+const readmeContent = `# ${title}\n\n${description}\n\nThis README was generated automatically from index.html.`;
 
 // Write to README.md
-const output = fs.writeFileSync('README.md', readmeContent);
-console.log(output);
+fs.writeFileSync('README.md', readmeContent);
