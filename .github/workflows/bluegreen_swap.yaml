@@ -3,6 +3,11 @@ name: Blue-Green Swap for HTML Pages
 on:
   workflow_dispatch: # Allows manual triggering of the workflow
  
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+  
 jobs:
   swap-index:
     runs-on: ubuntu-latest
