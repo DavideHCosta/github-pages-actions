@@ -33,7 +33,7 @@ jobs:
       # Step 4: Run HTML linter
       - name: Run HTML linter
         run: |
-          npm htmlhint docs/index.html
+          htmlhint docs/index.html
  
       # Step 5: Run test script to check for the presence of a <title> tag
       - name: Run title tag test
