@@ -2,7 +2,7 @@ const fs = require('fs');
 const { JSDOM } = require('jsdom');
 
 // Load index.html
-const htmlContent = fs.readFileSync('index.html', 'utf-8');
+const htmlContent = fs.readFileSync('docs/index.html', 'utf-8');
 const dom = new JSDOM(htmlContent);
 
 // Extract <title> and first <p> as description
