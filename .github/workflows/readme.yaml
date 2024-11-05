@@ -25,4 +25,4 @@ jobs:
 
       # Run JavaScript code
       - name: Run JavaScript Code
-        run: node move_to_readme.js
+        run: node .github/workflows/move_to_readme.js
